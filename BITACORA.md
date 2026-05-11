@@ -1,9 +1,9 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ## 1. Estado actual
-- Pasos ejecutados: 8 de 15.
+- Pasos ejecutados: 9 de 15.
 - Paso en curso: ninguno.
-- Última actualización: 2026-05-10 22:11.
+- Última actualización: 2026-05-10 22:30.
 - Rama de trabajo: main.
 
 ## 2. Plan original
@@ -75,11 +75,15 @@
 - Commit: pendiente
 - Observación técnica breve: Implementación de la orquestación en la capa de aplicación, delegando reglas de negocio al dominio y persistencia al puerto (AC-01, AC-04).
 
+### Paso 9 - Crear caso de uso MoverTarea
+- Fecha: 2026-05-10 22:30
+- Archivos modificados: `src/aplicacion/mover_tarea.py`
+- Validación ejecutada: Script con MockRepositorio verificando el flujo cargar -> mover -> guardar.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Se implementó el caso de uso para mover tareas, asegurando que la persistencia se actualice únicamente si la lógica de dominio permite la transición.
+
 ## 4. Pasos pendientes
-- [x] Paso 6 - Proteger límite WIP y atomicidad
-- [x] Paso 7 - Crear puerto RepositorioTablero
-- [x] Paso 8 - Crear caso de uso CrearTarea
-- [ ] Paso 9 - Crear caso de uso MoverTarea
 - [ ] Paso 10 - Crear caso de uso ObtenerTablero
 - [ ] Paso 11 - Implementar repositorio JSON
 - [ ] Paso 12 - Crear adaptador HTTP Flask
@@ -113,6 +117,11 @@
 - Decisión: Utilizar `abc.ABC` y `@abstractmethod` de Python para definir la interfaz abstracta de persistencia en la capa de aplicación.
 - Justificación: Al no contar con interfaces nativas en Python, el módulo `abc` proporciona seguridad al fallar tempranamente (en tiempo de instanciación) si los adaptadores de infraestructura omiten implementar métodos del puerto.
 - Impacto: Garantiza cumplimiento estricto del contrato por parte del repositorio JSON que se construirá en el Paso 11.
+
+### DEC-06 (Paso 9) - Orquestación del cambio de estado
+- Decisión: El caso de uso `MoverTarea` delega toda la lógica de validación al aggregate root `Tablero`.
+- Justificación: Mantiene la lógica de negocio centralizada en el dominio y asegura que la persistencia solo ocurra si la transición es válida.
+- Impacto: El caso de uso es simple y enfocado en la orquestación (cargar -> ejecutar dominio -> guardar).
 
 ## 6. Bloqueos y solución
 
