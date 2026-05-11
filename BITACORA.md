@@ -1,7 +1,7 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ## 1. Estado actual
-- Pasos ejecutados: 6 de 15.
+- Pasos ejecutados: 7 de 15.
 - Paso en curso: ninguno.
 - Última actualización: 2026-05-10 22:11.
 - Rama de trabajo: main.
@@ -59,9 +59,17 @@
 - Commit: pendiente
 - Observación técnica breve: Implementación de la validación del límite WIP en `mover_tarea`, asegurando la atomicidad al no mutar el estado antes de validar (INV-01, INV-02, INV-05).
 
+### Paso 7 - Crear puerto RepositorioTablero
+- Fecha: 2026-05-10 22:19
+- Archivos modificados: `src/aplicacion/repositorio_tablero.py`
+- Validación ejecutada: `python -c "from src.aplicacion.repositorio_tablero import RepositorioTablero; print(RepositorioTablero.__abstractmethods__)"`
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Creación de la interfaz `RepositorioTablero` en la capa de aplicación usando `abc.ABC` según lo definido en `ARCHITECTURE.md`.
+
 ## 4. Pasos pendientes
 - [x] Paso 6 - Proteger límite WIP y atomicidad
-- [ ] Paso 7 - Crear puerto RepositorioTablero
+- [x] Paso 7 - Crear puerto RepositorioTablero
 - [ ] Paso 8 - Crear caso de uso CrearTarea
 - [ ] Paso 9 - Crear caso de uso MoverTarea
 - [ ] Paso 10 - Crear caso de uso ObtenerTablero
@@ -92,6 +100,11 @@
 - Decisión: Validar las transiciones de estado directamente en el método `mover_tarea` del `Tablero` en lugar de la entidad `Tarea`.
 - Justificación: Siguiendo las directrices de DOMAIN.md, el `Tablero` como aggregate root debe proteger las invariantes y controlar todos los cambios sobre sus entidades internas.
 - Impacto: Mantiene la lógica de orquestación de tareas fuertemente cohesiva dentro del Tablero.
+
+### DEC-05 (Paso 7) - Uso de ABC para puerto RepositorioTablero
+- Decisión: Utilizar `abc.ABC` y `@abstractmethod` de Python para definir la interfaz abstracta de persistencia en la capa de aplicación.
+- Justificación: Al no contar con interfaces nativas en Python, el módulo `abc` proporciona seguridad al fallar tempranamente (en tiempo de instanciación) si los adaptadores de infraestructura omiten implementar métodos del puerto.
+- Impacto: Garantiza cumplimiento estricto del contrato por parte del repositorio JSON que se construirá en el Paso 11.
 
 ## 6. Bloqueos y solución
 
