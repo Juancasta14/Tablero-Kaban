@@ -1,7 +1,7 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ### 1. Estado actual
-- Pasos ejecutados: 11 de 15.
+- Pasos ejecutados: 12 de 15.
 - Paso en curso: ninguno.
 - Última actualización: 2026-05-10 22:37.
 - Rama de trabajo: main.
@@ -99,8 +99,16 @@
 - Commit: pendiente
 - Observación técnica breve: Implementación concreta de `RepositorioTablero` en la capa de infraestructura usando el módulo `json`. Maneja correctamente la inicialización de tableros vacíos y serializa/deserializa entidades del dominio.
 
+### Paso 12 - Crear adaptador HTTP Flask
+- Fecha: 2026-05-10 22:45
+- Archivos modificados: `src/infraestructura/http/api.py`
+- Validación ejecutada: `python -m py_compile src/infraestructura/http/api.py`
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Creación del adaptador primario HTTP exponiendo rutas GET, POST y PUT, inyectando el RepositorioJSON a los casos de uso y traduciendo excepciones de dominio (`ErrorDominio`) a códigos HTTP 400.
+
 ## 4. Pasos pendientes
-- [ ] Paso 12 - Crear adaptador HTTP Flask
+- [x] Paso 12 - Crear adaptador HTTP Flask
 - [ ] Paso 13 - Crear frontend HTML/CSS/JS
 - [ ] Paso 14 - Agregar pruebas y validaciones finales
 - [ ] Paso 15 - Actualizar README y cerrar BITACORA.md
@@ -137,10 +145,20 @@
 - Justificación: Mantiene la lógica de negocio centralizada en el dominio y asegura que la persistencia solo ocurra si la transición es válida.
 - Impacto: El caso de uso es simple y enfocado en la orquestación (cargar -> ejecutar dominio -> guardar).
 
+### DEC-08 (Paso 10) - Serialización agrupada en el Aggregate Root
+- Decisión: Ubicar la lógica de agrupación por estados (TODO, DOING, DONE) y serialización a diccionarios en el método `obtener_tareas_por_estado` dentro de `Tablero`.
+- Justificación: Concentra las reglas estructurales de cómo se representa un tablero agrupado en el dominio, en vez de ensuciar el caso de uso `ObtenerTablero` con bucles lógicos.
+- Impacto: El caso de uso actúa estrictamente como un orquestador, y la respuesta generada es directamente compatible con JSON y el frontend.
+
 ### DEC-07 (Paso 11) - Tolerancia a fallos en deserialización JSON
 - Decisión: Capturar la excepción `json.JSONDecodeError` al cargar el tablero y devolver un diccionario vacío para inicializar un nuevo estado.
 - Justificación: Protege la aplicación si el archivo JSON persistido se corrompe o queda vacío de forma abrupta, cumpliendo con la expectativa de que siempre se pueda iniciar un tablero vacío si falla la carga.
 - Impacto: Permite que la aplicación arranque de manera confiable y reescriba el archivo de persistencia con un estado limpio al primer intento de guardado.
+
+### DEC-09 (Paso 12) - Traducción de excepciones a códigos HTTP
+- Decisión: Capturar genéricamente `ErrorDominio` y `ValueError` en las rutas de Flask y mapearlos a respuestas `400 Bad Request`.
+- Justificación: Evita que el dominio conozca o manipule conceptos web (como códigos HTTP), manteniendo la estricta separación requerida en la arquitectura hexagonal.
+- Impacto: El adaptador HTTP maneja consistentemente cualquier fallo de negocio sin romper la aplicación.
 
 ## 6. Bloqueos y solución
 
