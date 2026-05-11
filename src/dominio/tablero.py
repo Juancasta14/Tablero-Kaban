@@ -1,7 +1,7 @@
 from typing import List
 from src.dominio.tarea import Tarea
 from src.dominio.estado_tarea import EstadoTarea
-from src.dominio.errores import ErrorTareaNoEncontrada, ErrorTransicionInvalida
+from src.dominio.errores import ErrorTareaNoEncontrada, ErrorTransicionInvalida, ErrorLimiteWipExcedido
 
 LIMITE_WIP = 3
 
@@ -25,6 +25,11 @@ class Tablero:
             raise ErrorTransicionInvalida("Una tarea DOING solo puede pasar a DONE")
         if tarea.estado == EstadoTarea.DONE:
             raise ErrorTransicionInvalida("Una tarea DONE no puede cambiar de estado")
+            
+        if estado_destino == EstadoTarea.DOING:
+            tareas_doing = sum(1 for t in self.tareas if t.estado == EstadoTarea.DOING)
+            if tareas_doing >= LIMITE_WIP:
+                raise ErrorLimiteWipExcedido(f"El límite WIP ({LIMITE_WIP}) ha sido excedido")
             
         tarea.estado = estado_destino
         return tarea

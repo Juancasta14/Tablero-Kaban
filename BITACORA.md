@@ -1,7 +1,7 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ## 1. Estado actual
-- Pasos ejecutados: 5 de 15.
+- Pasos ejecutados: 6 de 15.
 - Paso en curso: ninguno.
 - Última actualización: 2026-05-10 22:11.
 - Rama de trabajo: main.
@@ -51,8 +51,16 @@
 - Commit: `e59c220`
 - Observación técnica breve: Implementación de mover_tarea en Tablero con validación de transiciones de estado (INV-03, FEATURE_SPEC_002).
 
+### Paso 6 - Proteger límite WIP y atomicidad
+- Fecha: 2026-05-10 22:15
+- Archivos modificados: `src/dominio/tablero.py`
+- Validación ejecutada: Script en Python comprobando que una cuarta tarea al pasar a DOING lanza `ErrorLimiteWipExcedido`.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Implementación de la validación del límite WIP en `mover_tarea`, asegurando la atomicidad al no mutar el estado antes de validar (INV-01, INV-02, INV-05).
+
 ## 4. Pasos pendientes
-- [ ] Paso 6 - Proteger límite WIP y atomicidad
+- [x] Paso 6 - Proteger límite WIP y atomicidad
 - [ ] Paso 7 - Crear puerto RepositorioTablero
 - [ ] Paso 8 - Crear caso de uso CrearTarea
 - [ ] Paso 9 - Crear caso de uso MoverTarea
@@ -75,6 +83,16 @@
 - Justificación: Facilita el manejo de errores en las capas externas (Aplicación/Infraestructura) permitiendo capturar cualquier fallo de lógica de negocio de forma genérica.
 - Impacto: Mejora la limpieza de los bloques try/except en adaptadores futuros.
 
+### DEC-03 (Paso 4) - Tablero como Aggregate Root
+- Decisión: La clase `Tablero` maneja la lista de tareas en memoria mediante el atributo `tareas` de tipo `List[Tarea]`.
+- Justificación: Representar la relación como una lista facilita la implementación en memoria y la iteración para realizar validaciones o búsquedas, alineándose con el concepto de aggregate root.
+- Impacto: Define la estructura que se usará para serializar en el repositorio JSON (Paso 11).
+
+### DEC-04 (Paso 5) - Control de invariantes en Aggregate Root
+- Decisión: Validar las transiciones de estado directamente en el método `mover_tarea` del `Tablero` en lugar de la entidad `Tarea`.
+- Justificación: Siguiendo las directrices de DOMAIN.md, el `Tablero` como aggregate root debe proteger las invariantes y controlar todos los cambios sobre sus entidades internas.
+- Impacto: Mantiene la lógica de orquestación de tareas fuertemente cohesiva dentro del Tablero.
+
 ## 6. Bloqueos y solución
 
 ### BLOQ-01 - Error en creación de archivos vacíos
@@ -82,3 +100,9 @@
 - Causa probable: Restricción del esquema de la herramienta o error de parsing con strings vacíos.
 - Solución aplicada: Ejecución de comando PowerShell `New-Item` para creación masiva de archivos.
 - Evidencia: Salida de terminal confirmando la creación de los 6 archivos en la estructura `src/`.
+
+### BLOQ-02 (Paso 4) - Archivo PLAN_ATOMICO.md no encontrado en raíz
+- Síntoma: Fallo al intentar leer `PLAN_ATOMICO.md` directamente en la raíz del proyecto para validar los pasos siguientes.
+- Causa probable: El archivo había sido ubicado de forma ordenada dentro del directorio `plan/` y no en la ruta principal.
+- Solución aplicada: Se listó el contenido del directorio raíz para ubicar la carpeta correcta y luego se leyó desde `plan/PLAN_ATOMICO.md`.
+- Evidencia: Acceso exitoso al plan atómico y reanudación inmediata de las tareas.
