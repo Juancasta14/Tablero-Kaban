@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, request, jsonify, send_from_directory
 from src.infraestructura.persistencia.repositorio_json import RepositorioTableroJSON
 from src.aplicacion.obtener_tablero import ObtenerTablero
 from src.aplicacion.crear_tarea import CrearTarea
@@ -6,8 +7,16 @@ from src.aplicacion.mover_tarea import MoverTarea
 from src.dominio.estado_tarea import EstadoTarea
 from src.dominio.errores import ErrorDominio
 
-app = Flask(__name__)
+base_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_dir = os.path.join(base_dir, '..', 'frontend')
+
+app = Flask(__name__, static_folder=frontend_dir, static_url_path='/')
+
 repositorio = RepositorioTableroJSON()
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/api/tablero', methods=['GET'])
 def obtener_tablero():

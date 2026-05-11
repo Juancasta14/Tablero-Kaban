@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero Kanban</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Kanban<span>Flow</span></h1>
+            <p>Gestiona tus tareas con estilo</p>
+        </header>
+
+        <section class="add-task-section">
+            <form id="task-form">
+                <input type="text" id="task-input" placeholder="¿Qué necesitas hacer hoy?" required autocomplete="off">
+                <button type="submit" id="add-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Añadir Tarea
+                </button>
+            </form>
+            <div id="error-message" class="error-message"></div>
+        </section>
+
+        <main class="board">
+            <div class="column" id="col-todo">
+                <div class="column-header">
+                    <h2>Por Hacer</h2>
+                    <span class="task-count" id="count-todo">0</span>
+                </div>
+                <div class="task-list" id="list-todo" data-status="TODO">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+
+            <div class="column" id="col-doing">
+                <div class="column-header">
+                    <h2>En Progreso</h2>
+                    <span class="task-count" id="count-doing">0</span>
+                </div>
+                <div class="task-list" id="list-doing" data-status="DOING">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+
+            <div class="column" id="col-done">
+                <div class="column-header">
+                    <h2>Completado</h2>
+                    <span class="task-count" id="count-done">0</span>
+                </div>
+                <div class="task-list" id="list-done" data-status="DONE">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

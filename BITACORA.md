@@ -107,9 +107,17 @@
 - Commit: pendiente
 - Observación técnica breve: Creación del adaptador primario HTTP exponiendo rutas GET, POST y PUT, inyectando el RepositorioJSON a los casos de uso y traduciendo excepciones de dominio (`ErrorDominio`) a códigos HTTP 400.
 
+### Paso 13 - Crear frontend HTML/CSS/JS
+- Fecha: 2026-05-10 22:50
+- Archivos modificados: `src/infraestructura/frontend/index.html`, `src/infraestructura/frontend/style.css`, `src/infraestructura/frontend/app.js`, `src/infraestructura/http/api.py`
+- Validación ejecutada: Verificación manual de la sintaxis y ejecución del servidor de desarrollo con `python src/infraestructura/http/api.py`.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Creación de la interfaz de usuario en Vanilla JS, HTML5 y CSS3. Se actualizó el adaptador HTTP (Flask) para servir estos archivos estáticos en la ruta raíz (`/`).
+
 ## 4. Pasos pendientes
 - [x] Paso 12 - Crear adaptador HTTP Flask
-- [ ] Paso 13 - Crear frontend HTML/CSS/JS
+- [x] Paso 13 - Crear frontend HTML/CSS/JS
 - [ ] Paso 14 - Agregar pruebas y validaciones finales
 - [ ] Paso 15 - Actualizar README y cerrar BITACORA.md
 
@@ -159,6 +167,11 @@
 - Decisión: Capturar genéricamente `ErrorDominio` y `ValueError` en las rutas de Flask y mapearlos a respuestas `400 Bad Request`.
 - Justificación: Evita que el dominio conozca o manipule conceptos web (como códigos HTTP), manteniendo la estricta separación requerida en la arquitectura hexagonal.
 - Impacto: El adaptador HTTP maneja consistentemente cualquier fallo de negocio sin romper la aplicación.
+
+### DEC-10 (Paso 13) - Servir archivos estáticos mediante el adaptador HTTP
+- Decisión: Configurar Flask en `api.py` para servir los archivos del frontend estático (HTML, CSS, JS) desde el directorio `../frontend`.
+- Justificación: Esto simplifica la ejecución del proyecto localmente evitando problemas de CORS, ya que tanto el API como la interfaz gráfica se acceden desde el mismo origen (`localhost:5000`).
+- Impacto: El frontend interactúa fluidamente con los endpoints definidos sin configuración adicional, respetando la estructura de carpetas establecida en la arquitectura.
 
 ## 6. Bloqueos y solución
 
