@@ -1,7 +1,7 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ## 1. Estado actual
-- Pasos ejecutados: 9 de 15.
+- Pasos ejecutados: 10 de 15.
 - Paso en curso: ninguno.
 - Última actualización: 2026-05-10 22:30.
 - Rama de trabajo: main.
@@ -83,8 +83,16 @@
 - Commit: pendiente
 - Observación técnica breve: Se implementó el caso de uso para mover tareas, asegurando que la persistencia se actualice únicamente si la lógica de dominio permite la transición.
 
+### Paso 10 - Crear caso de uso ObtenerTablero
+- Fecha: 2026-05-10 22:33
+- Archivos modificados: `src/dominio/tablero.py`, `src/aplicacion/obtener_tablero.py`
+- Validación ejecutada: Script simulando la carga del tablero e imprimiendo la salida JSON agrupada por las columnas TODO, DOING y DONE.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Implementación de la agrupación y serialización de tareas en el aggregate root, y el caso de uso de solo lectura que orquesta la consulta (AC-01, AC-02, AC-03).
+
 ## 4. Pasos pendientes
-- [ ] Paso 10 - Crear caso de uso ObtenerTablero
+- [x] Paso 10 - Crear caso de uso ObtenerTablero
 - [ ] Paso 11 - Implementar repositorio JSON
 - [ ] Paso 12 - Crear adaptador HTTP Flask
 - [ ] Paso 13 - Crear frontend HTML/CSS/JS

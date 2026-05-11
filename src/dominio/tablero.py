@@ -33,3 +33,13 @@ class Tablero:
             
         tarea.estado = estado_destino
         return tarea
+
+    def obtener_tareas_por_estado(self) -> dict:
+        def serializar(tarea: Tarea) -> dict:
+            return {"id_tarea": tarea.id_tarea, "titulo": tarea.titulo, "estado": tarea.estado.value}
+            
+        return {
+            EstadoTarea.TODO.value: [serializar(t) for t in self.tareas if t.estado == EstadoTarea.TODO],
+            EstadoTarea.DOING.value: [serializar(t) for t in self.tareas if t.estado == EstadoTarea.DOING],
+            EstadoTarea.DONE.value: [serializar(t) for t in self.tareas if t.estado == EstadoTarea.DONE]
+        }
