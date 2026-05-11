@@ -1,0 +1,29 @@
+{
+  "tareas": [
+    {
+      "id_tarea": "23dcd0fd-5abf-456d-a018-f73abfb27fdf",
+      "titulo": "Crear mensaje correo electronico",
+      "estado": "DONE"
+    },
+    {
+      "id_tarea": "b76967de-4a98-4b5a-910c-9ec5782b1a32",
+      "titulo": "Frontd",
+      "estado": "DOING"
+    },
+    {
+      "id_tarea": "8caf0461-799e-49de-b663-5641c274f8d3",
+      "titulo": "Backend",
+      "estado": "DOING"
+    },
+    {
+      "id_tarea": "8220bc35-2a15-44c8-82e0-a1c6704a9312",
+      "titulo": "BD",
+      "estado": "TODO"
+    },
+    {
+      "id_tarea": "8a58a244-a68f-4718-a9af-4834b1f9eb67",
+      "titulo": "Testing",
+      "estado": "DOING"
+    }
+  ]
+}
