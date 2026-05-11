@@ -1,7 +1,7 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ## 1. Estado actual
-- Pasos ejecutados: 7 de 15.
+- Pasos ejecutados: 8 de 15.
 - Paso en curso: ninguno.
 - Última actualización: 2026-05-10 22:11.
 - Rama de trabajo: main.
@@ -67,10 +67,18 @@
 - Commit: pendiente
 - Observación técnica breve: Creación de la interfaz `RepositorioTablero` en la capa de aplicación usando `abc.ABC` según lo definido en `ARCHITECTURE.md`.
 
+### Paso 8 - Crear caso de uso CrearTarea
+- Fecha: 2026-05-10 22:24
+- Archivos modificados: `src/aplicacion/crear_tarea.py`
+- Validación ejecutada: Script en Python con un repositorio mock para comprobar el ciclo `cargar` -> `crear_tarea` -> `guardar`.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Implementación de la orquestación en la capa de aplicación, delegando reglas de negocio al dominio y persistencia al puerto (AC-01, AC-04).
+
 ## 4. Pasos pendientes
 - [x] Paso 6 - Proteger límite WIP y atomicidad
 - [x] Paso 7 - Crear puerto RepositorioTablero
-- [ ] Paso 8 - Crear caso de uso CrearTarea
+- [x] Paso 8 - Crear caso de uso CrearTarea
 - [ ] Paso 9 - Crear caso de uso MoverTarea
 - [ ] Paso 10 - Crear caso de uso ObtenerTablero
 - [ ] Paso 11 - Implementar repositorio JSON
