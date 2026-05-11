@@ -3,7 +3,7 @@
 ## 1. Estado actual
 - Pasos ejecutados: 5 de 15.
 - Paso en curso: ninguno.
-- Última actualización: 2026-05-10 22:01.
+- Última actualización: 2026-05-10 22:11.
 - Rama de trabajo: main.
 
 ## 2. Plan original
@@ -40,7 +40,7 @@
 - Archivos modificados: `src/dominio/tablero.py`
 - Validación ejecutada: `python -c "from src.dominio.tablero import Tablero; t = Tablero(); t.crear_tarea('Prueba'); print(t.tareas[0].titulo)"`
 - Resultado: OK
-- Commit: pendiente
+- Commit: `e59c220`
 - Observación técnica breve: Creación de la entidad Tablero como aggregate root y método crear_tarea (INV-04, FEATURE_SPEC_001).
 
 ### Paso 5 - Implementar movimiento y transiciones
@@ -48,12 +48,10 @@
 - Archivos modificados: `src/dominio/tablero.py`
 - Validación ejecutada: `python -c "from src.dominio.tablero import Tablero; from src.dominio.estado_tarea import EstadoTarea; t = Tablero(); tarea = t.crear_tarea('Test'); t.mover_tarea(tarea.id_tarea, EstadoTarea.DOING); print(t.tareas[0].estado)"`
 - Resultado: OK
-- Commit: pendiente
+- Commit: `e59c220`
 - Observación técnica breve: Implementación de mover_tarea en Tablero con validación de transiciones de estado (INV-03, FEATURE_SPEC_002).
 
 ## 4. Pasos pendientes
-- [x] Paso 4 - Crear Tablero y operación crear_tarea
-- [x] Paso 5 - Implementar movimiento y transiciones
 - [ ] Paso 6 - Proteger límite WIP y atomicidad
 - [ ] Paso 7 - Crear puerto RepositorioTablero
 - [ ] Paso 8 - Crear caso de uso CrearTarea
@@ -66,4 +64,21 @@
 - [ ] Paso 15 - Actualizar README y cerrar BITACORA.md
 
 ## 5. Decisiones tomadas
-### DEC-XX (paso N) - {titulo} - Decisión: {qué se decidió} - Justificación: {por qué} - Impacto: {pasos afectados} ## 6. Bloqueos y solución ### BLOQ-XX - Síntoma: - Causa probable: - Solución aplicada: - Evidencia:
+
+### DEC-01 (Paso 2) - Uso de ValueError como placeholder
+- Decisión: Implementar validación de INV-04 usando `ValueError` temporalmente.
+- Justificación: El paso CAM-03 (Crear errores de dominio) aún no se había ejecutado y se requería validar la invariante de inmediato.
+- Impacto: Refactorización realizada exitosamente en el Paso 3.
+
+### DEC-02 (Paso 3) - Jerarquía de errores de dominio
+- Decisión: Crear `ErrorDominio` como clase base para todas las excepciones del tablero.
+- Justificación: Facilita el manejo de errores en las capas externas (Aplicación/Infraestructura) permitiendo capturar cualquier fallo de lógica de negocio de forma genérica.
+- Impacto: Mejora la limpieza de los bloques try/except en adaptadores futuros.
+
+## 6. Bloqueos y solución
+
+### BLOQ-01 - Error en creación de archivos vacíos
+- Síntoma: Fallo en la herramienta `write_to_file` al intentar generar archivos `__init__.py` sin contenido.
+- Causa probable: Restricción del esquema de la herramienta o error de parsing con strings vacíos.
+- Solución aplicada: Ejecución de comando PowerShell `New-Item` para creación masiva de archivos.
+- Evidencia: Salida de terminal confirmando la creación de los 6 archivos en la estructura `src/`.
