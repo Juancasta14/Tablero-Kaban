@@ -1,9 +1,9 @@
 # BITACORA.md -- Tablero Kanban Personal
 
-## 1. Estado actual
-- Pasos ejecutados: 10 de 15.
+### 1. Estado actual
+- Pasos ejecutados: 11 de 15.
 - Paso en curso: ninguno.
-- Última actualización: 2026-05-10 22:30.
+- Última actualización: 2026-05-10 22:37.
 - Rama de trabajo: main.
 
 ## 2. Plan original
@@ -91,9 +91,15 @@
 - Commit: pendiente
 - Observación técnica breve: Implementación de la agrupación y serialización de tareas en el aggregate root, y el caso de uso de solo lectura que orquesta la consulta (AC-01, AC-02, AC-03).
 
+### Paso 11 - Implementar repositorio JSON
+- Fecha: 2026-05-10 22:36
+- Archivos modificados: `src/infraestructura/persistencia/repositorio_json.py`
+- Validación ejecutada: Script simulando un caso de uso con persistencia real hacia archivo `test_tablero.json`.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Implementación concreta de `RepositorioTablero` en la capa de infraestructura usando el módulo `json`. Maneja correctamente la inicialización de tableros vacíos y serializa/deserializa entidades del dominio.
+
 ## 4. Pasos pendientes
-- [x] Paso 10 - Crear caso de uso ObtenerTablero
-- [ ] Paso 11 - Implementar repositorio JSON
 - [ ] Paso 12 - Crear adaptador HTTP Flask
 - [ ] Paso 13 - Crear frontend HTML/CSS/JS
 - [ ] Paso 14 - Agregar pruebas y validaciones finales
@@ -130,6 +136,11 @@
 - Decisión: El caso de uso `MoverTarea` delega toda la lógica de validación al aggregate root `Tablero`.
 - Justificación: Mantiene la lógica de negocio centralizada en el dominio y asegura que la persistencia solo ocurra si la transición es válida.
 - Impacto: El caso de uso es simple y enfocado en la orquestación (cargar -> ejecutar dominio -> guardar).
+
+### DEC-07 (Paso 11) - Tolerancia a fallos en deserialización JSON
+- Decisión: Capturar la excepción `json.JSONDecodeError` al cargar el tablero y devolver un diccionario vacío para inicializar un nuevo estado.
+- Justificación: Protege la aplicación si el archivo JSON persistido se corrompe o queda vacío de forma abrupta, cumpliendo con la expectativa de que siempre se pueda iniciar un tablero vacío si falla la carga.
+- Impacto: Permite que la aplicación arranque de manera confiable y reescriba el archivo de persistencia con un estado limpio al primer intento de guardado.
 
 ## 6. Bloqueos y solución
 
