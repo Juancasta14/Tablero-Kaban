@@ -1,7 +1,7 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ## 1. Estado actual
-- Pasos ejecutados: 3 de 15.
+- Pasos ejecutados: 4 de 15.
 - Paso en curso: ninguno.
 - Última actualización: 2026-05-10 22:01.
 - Rama de trabajo: main.
@@ -35,8 +35,16 @@
 - Commit: `2d383aa`
 - Observación técnica breve: Implementación de excepciones específicas del dominio y refactorización de Tarea para usarlas.
 
+### Paso 4 - Crear Tablero y operación crear_tarea
+- Fecha: 2026-05-10 22:04
+- Archivos modificados: `src/dominio/tablero.py`
+- Validación ejecutada: `python -c "from src.dominio.tablero import Tablero; t = Tablero(); t.crear_tarea('Prueba'); print(t.tareas[0].titulo)"`
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Creación de la entidad Tablero como aggregate root y método crear_tarea (INV-04, FEATURE_SPEC_001).
+
 ## 4. Pasos pendientes
-- [ ] Paso 4 - Crear Tablero y operación crear_tarea
+- [x] Paso 4 - Crear Tablero y operación crear_tarea
 - [ ] Paso 5 - Implementar movimiento y transiciones
 - [ ] Paso 6 - Proteger límite WIP y atomicidad
 - [ ] Paso 7 - Crear puerto RepositorioTablero
