@@ -1,9 +1,9 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ### 1. Estado actual
-- Pasos ejecutados: 13 de 15.
-- Paso en curso: ninguno.
-- Última actualización: 2026-05-11 20:00.
+- Pasos ejecutados: 15 de 15.
+- Paso en curso: ninguno (Proyecto completado).
+- Última actualización: 2026-05-11 20:10.
 - Rama de trabajo: main.
 
 ## 2. Plan original
@@ -123,11 +123,19 @@
 - Commit: pendiente
 - Observación técnica breve: Se implementaron pruebas automatizadas validando todos los criterios de aceptación (AC) para crear, mover y obtener tareas usando un MockRepositorio.
 
+### Paso 15 - Actualizar README y cerrar BITACORA.md
+- Fecha: 2026-05-11 20:10
+- Archivos modificados: `README.md`, `BITACORA.md`
+- Validación ejecutada: Revisión humana.
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Se formateó el README.md para proveer comandos claros de instalación y ejecución. Se cerró la BITACORA.md documentando el final del proyecto.
+
 ## 4. Pasos pendientes
 - [x] Paso 12 - Crear adaptador HTTP Flask
 - [x] Paso 13 - Crear frontend HTML/CSS/JS
 - [x] Paso 14 - Agregar pruebas y validaciones finales
-- [ ] Paso 15 - Actualizar README y cerrar BITACORA.md
+- [x] Paso 15 - Actualizar README y cerrar BITACORA.md
 
 ## 5. Decisiones tomadas
 
