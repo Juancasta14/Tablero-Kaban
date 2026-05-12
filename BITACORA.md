@@ -1,9 +1,9 @@
 # BITACORA.md -- Tablero Kanban Personal
 
 ### 1. Estado actual
-- Pasos ejecutados: 12 de 15.
+- Pasos ejecutados: 13 de 15.
 - Paso en curso: ninguno.
-- Última actualización: 2026-05-10 22:37.
+- Última actualización: 2026-05-11 20:00.
 - Rama de trabajo: main.
 
 ## 2. Plan original
@@ -115,10 +115,18 @@
 - Commit: pendiente
 - Observación técnica breve: Creación de la interfaz de usuario en Vanilla JS, HTML5 y CSS3. Se actualizó el adaptador HTTP (Flask) para servir estos archivos estáticos en la ruta raíz (`/`).
 
+### Paso 14 - Agregar pruebas y validaciones finales
+- Fecha: 2026-05-11 20:00
+- Archivos modificados: `tests/conftest.py`, `tests/test_crear_tarea.py`, `tests/test_mover_tarea.py`, `tests/test_obtener_tablero.py`
+- Validación ejecutada: `python -m pytest tests/`
+- Resultado: OK
+- Commit: pendiente
+- Observación técnica breve: Se implementaron pruebas automatizadas validando todos los criterios de aceptación (AC) para crear, mover y obtener tareas usando un MockRepositorio.
+
 ## 4. Pasos pendientes
 - [x] Paso 12 - Crear adaptador HTTP Flask
 - [x] Paso 13 - Crear frontend HTML/CSS/JS
-- [ ] Paso 14 - Agregar pruebas y validaciones finales
+- [x] Paso 14 - Agregar pruebas y validaciones finales
 - [ ] Paso 15 - Actualizar README y cerrar BITACORA.md
 
 ## 5. Decisiones tomadas
